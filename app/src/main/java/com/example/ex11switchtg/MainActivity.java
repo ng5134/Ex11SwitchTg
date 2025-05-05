@@ -25,5 +25,25 @@ public class MainActivity extends AppCompatActivity {
         radioGroup = findViewById(R.id.radioGroup);
         btnChange = findViewById(R.id.btnChange);
         mySwitch = findViewById(R.id.mySwitch);
+        // Case 1: If the switch is ON, background changes immediately on radio button selection
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (mySwitch.isChecked()) {
+                    changeBackgroundColor(checkedId);
+                }
+            }
+        });
+
+        // Case 2: If the switch is OFF, background changes only when button is clicked
+        btnChange.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(android.view.View v) {
+                if (!mySwitch.isChecked()) {
+                    int selectedId = radioGroup.getCheckedRadioButtonId();
+                    changeBackgroundColor(selectedId);
+                }
+            }
+        });
     }
 }
